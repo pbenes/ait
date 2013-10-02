@@ -173,6 +173,11 @@ AIT.init = function aitInit(options, callback) {
         var browser = AIT.browser;
         try {
             browser.screenshot('ait-error-' + new Date().getTime() + '.png');
+            // report the url on which error appeared
+            browser.eval("window.location.href", function(err, location) {
+                console.error('Error browser location: ' + location);
+            });
+
             browser.quit();
         } catch(e) {
             // quietly finalize

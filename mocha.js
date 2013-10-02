@@ -67,6 +67,10 @@ var wrappedIt = function(desc, fn) {
                 console.log(ex.cause.value.message);
             }
             AIT.browser.screenshot('ait-error-' + new Date().getTime() + '.png');
+            // report the url on which error appeared
+            AIT.browser.eval("window.location.href", function(err, location) {
+                console.error('Error browser location: ' + location);
+            });
 
             AIT.browser.quit(function() {
                 throw ex;
